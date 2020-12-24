@@ -54,7 +54,7 @@ const Introduction = () => {
               </div>
               <br />
               <p>
-              For questions about the project, please contact us via
+              For questions about the project, feel free to reach out via
               {" "}
               <a
                 href="mailto:s1658172@sms.ed.ac.uk"
