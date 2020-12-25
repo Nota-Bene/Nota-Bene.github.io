@@ -11,6 +11,44 @@ import "./index.css"
 import usePyodide from "./usePyodide"
 import classNames from "../../utils/classNames"
 
+const Token = ({token, index, send, selectedToken}) => {
+  const [, updateState] = useState()
+  const forceUpdate = useCallback(() => updateState({}), [])
+
+  const posToColor = {
+    "verb": "red",
+    "noun": "blue",
+    "adj": "green"
+  }
+
+  const [bgColor, setBgColor] = useState("")
+
+  const tokenClick = () => {
+    setBgColor(posToColor[token.pos])
+    send(token, index)
+    forceUpdate()
+  }
+
+  return (
+    <span key={"wrap" + index}>
+      <span
+        key={index}
+        className={classNames(
+          "cursor-pointer",
+          selectedToken === index
+            ? "rounded-lg bg-" + bgColor + "-300 p-1 pl-2 pr-2"
+            : ""
+        )}
+        onClick={tokenClick}
+      >
+        {token.text}
+      </span>
+      {" "}
+    </span>
+  )
+
+}
+
 const TextBox = ({send}) => {
   const [textInput, setTextInput] = useState("")
 
@@ -74,12 +112,17 @@ const Demo = () => {
     return state
   }, [])
 
+  const [selectedToken, setSelectedToken] = useState(-1)
+  const newSelectedToken = (token, index) => {
+    setSelectedToken(index)
+    forceUpdate()
+  }
+
   const newUserInput = content => {
     runPython(`parse("${content}")`)
   }
 
   const parsedOutput = parsed => {
-    console.log(parsed)
     addParse(parsed)
     forceUpdate()
   }
@@ -111,16 +154,27 @@ const Demo = () => {
                         Enter Latin text to get started ↑
                       </div>
                     ) : (
-                      parses.map((parse, i) => (
-                        <div
-                          className="rounded-lg bg-white shadow-lg border border-gray-400 p-2 m-4 my-4 text-left"
-                          key={i}
-                        >
-                        {parse.map((token, j) => (
-                          <span key={j} text={token.text} lemma={token.lemma} pos={token.pos}>{token.text} </span>
-                        ))}
+                      <div className="grid grid-cols-2">{/* className="flex justify-evenly"> */}
+                        <div>
+                          {parses.map((parse, i) => (
+                            <div
+                              className="rounded-lg bg-white shadow-lg border border-gray-400 p-2 m-4 my-4 text-left"
+                              key={i}
+                            >
+                            {parse.map((token, j) => (
+                              <Token token={token} key={j} index={i + "," + j} send={newSelectedToken} selectedToken={selectedToken} />
+                            ))}
+                            </div>
+                          ))}
                         </div>
-                      ))
+                        <div className="rounded-lg bg-white shadow-lg border border-gray-400 p-2 m-4 my-4 text-left">
+                          {selectedToken != "" ? (
+                            <h1>{parses[selectedToken.split(",")[0]][selectedToken.split(",")[1]].text}</h1>
+                          ) : (
+                            <h1></h1>
+                          )}
+                        </div>
+                      </div>
                     )}
                   </div>
                 </div>

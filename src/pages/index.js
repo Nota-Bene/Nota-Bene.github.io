@@ -22,32 +22,6 @@ const Introduction = () => {
             <div className="mt-8">
               <div className="flex items-center">
                 <h4 className="flex-shrink-0 pr-4 bg-white text-sm leading-5 tracking-wider font-semibold uppercase text-gray-800">
-                  TODOTODO
-                </h4>
-                <div className="flex-1 border-t-2 border-gray-200"></div>
-              </div>
-              <br />
-              <p>
-                TODOTODO
-              </p>
-            </div>
-
-            <div className="mt-8">
-              <div className="flex items-center">
-                <h4 className="flex-shrink-0 pr-4 bg-white text-sm leading-5 tracking-wider font-semibold uppercase text-gray-800">
-                  TODOTODO
-                </h4>
-                <div className="flex-1 border-t-2 border-gray-200"></div>
-              </div>
-              <br />
-              <p>
-                TODOTODO
-              </p>
-            </div>
-
-            <div className="mt-8">
-              <div className="flex items-center">
-                <h4 className="flex-shrink-0 pr-4 bg-white text-sm leading-5 tracking-wider font-semibold uppercase text-gray-800">
                   Contact
                 </h4>
                 <div className="flex-1 border-t-2 border-gray-200"></div>
@@ -62,7 +36,7 @@ const Introduction = () => {
                 rel="noopener noreferrer"
                 className="text-blue-500"
               >
-                e-mail
+                email
               </a>.
               </p>
             </div>

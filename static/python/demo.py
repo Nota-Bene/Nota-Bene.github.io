@@ -7,6 +7,7 @@ def parse(input):
     parsedTokens.append({
       "text": token,
       "lemma": token,
-      "pos": "verb"
+      "pos": "verb",
+      "gloss": ["a test definition", "a second test definition"]
     })
   return parsedTokens
