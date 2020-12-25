@@ -112,7 +112,7 @@ const Demo = () => {
     return state
   }, [])
 
-  const [selectedToken, setSelectedToken] = useState(-1)
+  const [selectedToken, setSelectedToken] = useState("")
   const newSelectedToken = (token, index) => {
     setSelectedToken(index)
     forceUpdate()
