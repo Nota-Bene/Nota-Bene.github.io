@@ -8,6 +8,7 @@ def parse(input):
       "text": token,
       "lemma": token,
       "pos": "verb",
+      "decl": "3rd person singular future tense",
       "gloss": ["a test definition", "a second test definition"]
     })
   return parsedTokens

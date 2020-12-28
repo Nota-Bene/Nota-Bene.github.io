@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import SEO from "../components/seo"
-import Heading from "../components/heading"
+import {Heading, SubHeading} from "../components/heading"
 
 const Introduction = () => {
 
@@ -16,16 +16,15 @@ const Introduction = () => {
             </h3>
 
             <p className="mt-6 text-base leading-6">
-              TODOTODO
+              <i>Nota Bene</i> is an on-going dissertation project at the University of Edinburgh
+              to create a comprehensive computer-assisted translator and analyser of the Latin language into English.
+              It is intended to analyse Latin's morphological structure as fully and accurately as possible,
+              in a user-friendly format, relying on state-of-the-art natural language processing methods
+              in the fields of lemmatization, part-of-speech tagging, dependency parsing and translation.
             </p>
 
             <div className="mt-8">
-              <div className="flex items-center">
-                <h4 className="flex-shrink-0 pr-4 bg-white text-sm leading-5 tracking-wider font-semibold uppercase text-gray-800">
-                  Contact
-                </h4>
-                <div className="flex-1 border-t-2 border-gray-200"></div>
-              </div>
+              <SubHeading title="Contact" outline="left" />
               <br />
               <p>
               For questions about the project, feel free to reach out via

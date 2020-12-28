@@ -6,20 +6,20 @@ import React, {
   useState,
 } from "react"
 import LoadingModal from "../loadingModal"
-import Heading from "../heading"
+import {Heading, SubHeading} from "../heading"
 import "./index.css"
 import usePyodide from "./usePyodide"
 import classNames from "../../utils/classNames"
 
-const Token = ({token, index, send, selectedToken}) => {
+const posToColor = {
+  "verb": "red",
+  "noun": "blue",
+  "adj": "green"
+}
+
+const Token = ({token, index, send, selectedIndex}) => {
   const [, updateState] = useState()
   const forceUpdate = useCallback(() => updateState({}), [])
-
-  const posToColor = {
-    "verb": "red",
-    "noun": "blue",
-    "adj": "green"
-  }
 
   const [bgColor, setBgColor] = useState("")
 
@@ -35,7 +35,7 @@ const Token = ({token, index, send, selectedToken}) => {
         key={index}
         className={classNames(
           "cursor-pointer",
-          selectedToken === index
+          selectedIndex === index
             ? "rounded-lg bg-" + bgColor + "-300 p-1 pl-2 pr-2"
             : ""
         )}
@@ -112,9 +112,9 @@ const Demo = () => {
     return state
   }, [])
 
-  const [selectedToken, setSelectedToken] = useState("")
-  const newSelectedToken = (token, index) => {
-    setSelectedToken(index)
+  const [selectedIndex, setSelectedIndex] = useState("")
+  const newSelectedIndex = (token, index) => {
+    setSelectedIndex(index)
     forceUpdate()
   }
 
@@ -132,6 +132,12 @@ const Demo = () => {
     runPython(`from js import demo`)
     runPython(`exec(demo)`)
   }
+
+  var selectedToken = (
+    selectedIndex !== ""
+    ? parses[selectedIndex.split(",")[0]][selectedIndex.split(",")[1]]
+    : ""
+  )
 
   useEffect(() => {
     if (!loading) reloadGlobals()
@@ -162,17 +168,42 @@ const Demo = () => {
                               key={i}
                             >
                             {parse.map((token, j) => (
-                              <Token token={token} key={j} index={i + "," + j} send={newSelectedToken} selectedToken={selectedToken} />
+                              <Token token={token} key={j} index={i + "," + j} send={newSelectedIndex} selectedIndex={selectedIndex} />
                             ))}
                             </div>
                           ))}
                         </div>
-                        <div className="rounded-lg bg-white shadow-lg border border-gray-400 p-2 m-4 my-4 text-left">
-                          {selectedToken != "" ? (
-                            <h1>{parses[selectedToken.split(",")[0]][selectedToken.split(",")[1]].text}</h1>
-                          ) : (
-                            <h1></h1>
-                          )}
+                        <div>
+                          <div className="rounded-lg bg-white shadow-lg border border-gray-400 p-2 m-4 my-4 text-left">
+                            <SubHeading title="Word information" />
+                            {selectedToken !== "" ? (
+                              <div>
+                                <div className="flex justify-between flex-initial">
+                                  <p className="rounded-lg p-1 pl-2 pr-2">{selectedToken.text}</p>
+                                  <p
+                                    className={classNames(
+                                      "rounded-lg p-1 pl-2 pr-2 bg-" + posToColor[selectedToken.pos] + "-300"
+                                    )}
+                                  >
+                                    {selectedToken.pos}
+                                  </p>
+                                </div>
+                                <div className="pt-2 pb-4">
+                                  {selectedToken.decl} of <i>{selectedToken.lemma}</i>
+                                </div>
+                                <SubHeading title="Glossary" />
+                                <p className="rounded-lg p-1 pl-2 pr-2"><i>{selectedToken.lemma}</i></p>
+                                <ol className="list-decimal pl-5">
+                                  {selectedToken.gloss.map((entry, i) => (
+                                    <li key={i}>{entry}</li>
+                                  ))}
+                                </ol>
+                                {/* <SubHeading title="Translation" /> */}
+                              </div>
+                            ) : (
+                              <p><i>Click on a word to display its lexical and morphological information.</i></p>
+                            )}
+                          </div>
                         </div>
                       </div>
                     )}
