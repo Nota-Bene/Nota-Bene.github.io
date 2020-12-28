@@ -159,26 +159,33 @@ const Demo = () => {
                 <div className="bg-white px-6 py-8 lg:flex-shrink-1 lg:p-12">
                   <TextBox send={newUserInput} />
                   <div className="mb-6">
-                    {parses.length === 0 ? (
-                      <>
-                      {parsing ? (
-                        <></>
-                      ) : (
-                        <div className="text-gray-500 text-center text-sm">
-                          Enter Latin text to get started ↑
-                        </div>
-                      )}
-                      </>
+                    {parses.length === 0 && !parsing ? (
+                      <div className="text-gray-500 text-center text-sm">
+                        Enter Latin text to get started ↑
+                      </div>
                     ) : (
                       <div className="grid grid-cols-2">{/* className="flex justify-evenly"> */}
                         <div>
-                          {parses.map((parse, i) => (
+                          {parsing ? (
+                            <div className="rounded-lg bg-white shadow-lg border border-gray-400 p-2 m-4 my-4 text-left">
+                              <div className="animate-pulse flex space-x-4">
+                                <div className="flex-1 space-y-4 py-1">
+                                  <div className="h-4 bg-blue-400 rounded w-5/6"></div>
+                                  <div className="h-4 bg-blue-400 rounded"></div>
+                                  <div className="h-4 bg-blue-400 rounded w-3/4"></div>
+                                </div>
+                              </div>
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                          {[...parses].reverse().map((parse, i) => (
                             <div
                               className="rounded-lg bg-white shadow-lg border border-gray-400 p-2 m-4 my-4 text-left"
                               key={i}
                             >
                             {parse.map((token, j) => (
-                              <Token token={token} key={j} index={i + "," + j} send={newSelectedIndex} selectedIndex={selectedIndex} />
+                              <Token token={token} key={j} index={(parses.length - i - 1) + "," + j} send={newSelectedIndex} selectedIndex={selectedIndex} />
                             ))}
                             </div>
                           ))}
@@ -218,11 +225,6 @@ const Demo = () => {
                       </div>
                     )}
                   </div>
-                  {parsing ? (
-                    <>Parsing...</>
-                  ) : (
-                    <></>
-                  )}
                 </div>
               </div>
             </div>
