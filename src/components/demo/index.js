@@ -96,7 +96,10 @@ const Demo = () => {
   const [, updateState] = useState()
   const forceUpdate = useCallback(() => updateState({}), [])
 
+  const [parsing, setParsing] = useState(false)
+
   const callback = parsed => {
+    setParsing(false)
     if (parsed?.length > 0) {
       parsedOutput(parsed)
     }
@@ -119,6 +122,7 @@ const Demo = () => {
   }
 
   const newUserInput = content => {
+    setParsing(true)
     runPython(`parse("${content}")`)
   }
 
@@ -156,9 +160,15 @@ const Demo = () => {
                   <TextBox send={newUserInput} />
                   <div className="mb-6">
                     {parses.length === 0 ? (
-                      <div className="text-gray-500 text-center text-sm">
-                        Enter Latin text to get started ↑
-                      </div>
+                      <>
+                      {parsing ? (
+                        <></>
+                      ) : (
+                        <div className="text-gray-500 text-center text-sm">
+                          Enter Latin text to get started ↑
+                        </div>
+                      )}
+                      </>
                     ) : (
                       <div className="grid grid-cols-2">{/* className="flex justify-evenly"> */}
                         <div>
@@ -208,6 +218,11 @@ const Demo = () => {
                       </div>
                     )}
                   </div>
+                  {parsing ? (
+                    <>Parsing...</>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
             </div>
