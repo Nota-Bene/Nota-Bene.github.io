@@ -1,10 +1,24 @@
 const colors = require('tailwindcss/colors')
+const plugin = require("tailwindcss/plugin")
+const defaultTheme = require("tailwindcss/defaultTheme")
 
 module.exports = {
   purge: [],
   presets: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    extend: {
+      fontFamily: {
+        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
+        serif: ["Lora", ...defaultTheme.fontFamily.serif],
+      },
+      screens: {
+        xxl: "1536px",
+      },
+      spacing: {
+        "192": "48rem",
+      },
+    },
     screens: {
       sm: '640px',
       md: '768px',
@@ -178,7 +192,14 @@ module.exports = {
         '"Segoe UI Symbol"',
         '"Noto Color Emoji"',
       ],
-      serif: ['ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+      serif: [
+        'ui-serif',
+        'Georgia',
+        'Cambria',
+        '"Times New Roman"',
+        'Times',
+        'serif'
+      ],
       mono: [
         'ui-monospace',
         'SFMono-Regular',
@@ -740,7 +761,7 @@ module.exports = {
     appearance: ['responsive'],
     backgroundAttachment: ['responsive'],
     backgroundClip: ['responsive'],
-    backgroundColor: ['responsive', 'dark', 'group-hover', 'focus-within', 'hover', 'focus'],
+    backgroundColor: ['responsive', 'dark', 'group-hover', 'focus-within', 'hover', 'focus', 'even', 'disabled'],
     backgroundImage: ['responsive'],
     backgroundOpacity: ['responsive', 'group-hover', 'focus-within', 'hover', 'focus'],
     backgroundPosition: ['responsive'],
@@ -756,7 +777,7 @@ module.exports = {
     boxSizing: ['responsive'],
     clear: ['responsive'],
     container: ['responsive'],
-    cursor: ['responsive'],
+    cursor: ['responsive', 'disabled'],
     display: ['responsive'],
     divideColor: ['responsive', 'dark'],
     divideOpacity: ['responsive'],
@@ -797,14 +818,14 @@ module.exports = {
     lineHeight: ['responsive'],
     listStylePosition: ['responsive'],
     listStyleType: ['responsive'],
-    margin: ['responsive'],
+    margin: ['responsive', 'first'],
     maxHeight: ['responsive'],
     maxWidth: ['responsive'],
     minHeight: ['responsive'],
     minWidth: ['responsive'],
     objectFit: ['responsive'],
     objectPosition: ['responsive'],
-    opacity: ['responsive', 'group-hover', 'focus-within', 'hover', 'focus'],
+    opacity: ['responsive', 'group-hover', 'focus-within', 'hover', 'focus', 'disabled'],
     order: ['responsive'],
     outline: ['responsive', 'focus-within', 'focus'],
     overflow: ['responsive'],
@@ -851,5 +872,21 @@ module.exports = {
     wordBreak: ['responsive'],
     zIndex: ['responsive', 'focus-within', 'focus'],
   },
-  plugins: [],
+  plugins: [
+    require("tailwindcss-font-variant-numeric"),
+    plugin(function({ addUtilities, config, e }) {
+      const spaceUtilities = Object.entries(config("theme.spacing")).map(
+        ([key, value]) => ({
+          [`.space-x-${e(key)} > * + *`]: {
+            marginLeft: value,
+          },
+          [`.space-y-${e(key)} > * + *`]: {
+            marginTop: value,
+          },
+        })
+      )
+
+      addUtilities(spaceUtilities)
+    }),
+  ],
 }

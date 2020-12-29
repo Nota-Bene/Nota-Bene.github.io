@@ -63,7 +63,7 @@ const TextBox = ({send}) => {
         <div className="relative flex-grow focus-within:z-10">
           <input
             id="text_input"
-            className="form-input block w-full rounded-none rounded-l-md pl-10 transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+            className="form-input block w-full h-full rounded-none rounded-l-md border border-gray-300 pl-3 transition ease-in-out duration-150 sm:text-sm sm:leading-5"
             placeholder="Enter Latin text..."
             onChange={event => setTextInput(event.target.value)}
             value={textInput}

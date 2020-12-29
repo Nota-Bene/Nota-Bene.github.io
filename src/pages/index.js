@@ -16,8 +16,8 @@ const Introduction = () => {
 
             <p className="mt-6 text-base leading-6">
               <i>Nota Bene</i> is an on-going dissertation project at the University of Edinburgh
-              to create a comprehensive computer-assisted translator and analyser of the Latin language into English.
-              It is intended to analyse Latin's morphological structure as fully and accurately as possible,
+              which aims to create a comprehensive computer-assisted translator and analyser of the Latin language into English.
+              It intends to parse any Latin text as fully and accurately as possible,
               in a user-friendly format, relying on state-of-the-art natural language processing methods
               in the fields of lemmatization, part-of-speech tagging, dependency parsing and translation.
             </p>
