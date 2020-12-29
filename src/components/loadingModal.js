@@ -46,13 +46,13 @@ export const LoadingModal = ({ loading, message }) => {
             <div
               className={classNames(
                 "mx-auto flex items-center justify-center h-12 w-12 rounded-full",
-                loading ? "bg-orange-100" : "bg-green-100"
+                loading ? "bg-red-100" : "bg-green-100"
               )}
             >
               {loading ? (
                 <svg
                   fill="currentColor"
-                  className="h-6 w-6 text-orange-600"
+                  className="h-6 w-6 text-red-600"
                   viewBox="0 0 20 20"
                 >
                   <path

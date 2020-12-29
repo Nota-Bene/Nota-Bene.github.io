@@ -1,5 +1,4 @@
-import { Location } from "@reach/router"
-import { graphql, Link, useStaticQuery } from "gatsby"
+import { Link } from "gatsby"
 import React, { useState } from "react"
 import Logo from "./logo"
 import Transition from "./transition"
@@ -10,13 +9,6 @@ const Header = () => {
     { label: "Demo", href: "/demo" },
   ]
 
-  const data = useStaticQuery(graphql`
-    {
-      site {
-        pathPrefix
-      }
-    }
-  `)
   const [open, setOpen] = useState(false)
 
   // const primaryMenuItem = menuItems.find(({ isPrimary }) => isPrimary)

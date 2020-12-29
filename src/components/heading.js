@@ -21,7 +21,7 @@ const Heading = ({ title, subtitle = "" }) => {
 const SubHeading = ({ title, outline = "center" }) => {
     return (
         <div className="flex items-center pb-2">
-            {outline != "left" ? (
+            {outline !== "left" ? (
                 <div className="flex-1 border-t-2 border-gray-200 mr-3"></div>
             ) : (
                 <></>
@@ -29,7 +29,7 @@ const SubHeading = ({ title, outline = "center" }) => {
             <h4 className="flex-shrink-0 bg-white text-sm leading-5 tracking-wider font-semibold uppercase text-gray-800">
                 {title}
             </h4>
-            {outline != "right" ? (
+            {outline !== "right" ? (
                 <div className="flex-1 border-t-2 border-gray-200 ml-3"></div>
             ) : (
                 <></>
